@@ -25,7 +25,13 @@ export function AppShell({ items, children }: AppShellProps) {
   }, [])
 
   const objectCounts = new Map<string, number>()
+  const primitives: { name: string; title: string }[] = []
+
   for (const item of items) {
+    if (item.shopify?.granularity === "primitive") {
+      primitives.push({ name: item.name, title: item.title })
+      continue
+    }
     for (const obj of item.objects) {
       objectCounts.set(obj, (objectCounts.get(obj) ?? 0) + 1)
     }
@@ -39,6 +45,7 @@ export function AppShell({ items, children }: AppShellProps) {
     <div className="flex min-h-svh">
       <Sidebar
         categories={categories}
+        primitives={primitives}
         onSearchClick={() => setSearchOpen(true)}
       />
       <main className="min-w-0 flex-1 pl-[220px] lg:pl-[240px]">

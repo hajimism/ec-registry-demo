@@ -8,6 +8,12 @@ import { defaultProductDetail } from "@/registry/new-york/product-detail/fixture
 import { ProductDetail } from "@/registry/new-york/product-detail/product-detail"
 import { gridProducts } from "@/registry/new-york/product-grid/fixtures/products"
 import { ProductGrid } from "@/registry/new-york/product-grid/product-grid"
+import {
+  mainProduct,
+  relatedProducts,
+  sideCart,
+} from "@/registry/new-york/product-page/fixtures/default"
+import { ProductPage } from "@/registry/new-york/product-page/product-page"
 
 export function RegistryItemPreview({ name }: { name: string }) {
   switch (name) {
@@ -33,6 +39,16 @@ export function RegistryItemPreview({ name }: { name: string }) {
       return (
         <div className="mx-auto w-full max-w-sm text-[13px]">
           <CartSummary cart={defaultCart} />
+        </div>
+      )
+    case "product-page":
+      return (
+        <div className="min-w-0 text-[13px]">
+          <ProductPage
+            product={mainProduct}
+            relatedProducts={relatedProducts}
+            cart={sideCart}
+          />
         </div>
       )
     default:

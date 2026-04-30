@@ -5,14 +5,22 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { cn } from "@/lib/utils"
 
+type SidebarCategory = { label: string; slug: string; count: number }
+type PrimitiveEntry = { name: string; title: string }
+
 type SidebarProps = {
-  categories: { label: string; slug: string; count: number }[]
+  categories: SidebarCategory[]
+  primitives: PrimitiveEntry[]
   onSearchClick?: () => void
 }
 
 const NAV_LINKS = [{ href: "/", label: "All Components" }] as const
 
-export function Sidebar({ categories, onSearchClick }: SidebarProps) {
+export function Sidebar({
+  categories,
+  primitives,
+  onSearchClick,
+}: SidebarProps) {
   const pathname = usePathname()
 
   return (
@@ -68,7 +76,7 @@ export function Sidebar({ categories, onSearchClick }: SidebarProps) {
               {categories.map((cat) => (
                 <li key={cat.slug}>
                   <Link
-                    href={`/?object=${cat.slug}`}
+                    href={`/#${cat.slug}`}
                     className={cn(
                       "flex h-8 items-center justify-between rounded-md px-2.5 text-[13px] transition-colors",
                       "text-muted-foreground hover:bg-muted/60 hover:text-foreground",
@@ -78,6 +86,31 @@ export function Sidebar({ categories, onSearchClick }: SidebarProps) {
                     <span className="text-[11px] tabular-nums text-muted-foreground/70">
                       {cat.count}
                     </span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </>
+        )}
+
+        {primitives.length > 0 && (
+          <>
+            <p className="mb-2 mt-6 px-2.5 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
+              Primitives
+            </p>
+            <ul className="space-y-0.5">
+              {primitives.map((p) => (
+                <li key={p.name}>
+                  <Link
+                    href={`/registry/${p.name}`}
+                    className={cn(
+                      "flex h-8 items-center rounded-md px-2.5 text-[13px] transition-colors",
+                      pathname === `/registry/${p.name}`
+                        ? "bg-muted text-foreground"
+                        : "text-muted-foreground hover:bg-muted/60 hover:text-foreground",
+                    )}
+                  >
+                    {p.title}
                   </Link>
                 </li>
               ))}

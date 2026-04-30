@@ -2,6 +2,7 @@ import {
   Box,
   LayoutGrid,
   LayoutPanelTop,
+  LayoutTemplate,
   type LucideIcon,
   Package,
   ShoppingBag,
@@ -13,6 +14,7 @@ export const REGISTRY_ITEM_ICON: Record<string, LucideIcon> = {
   "product-detail": LayoutPanelTop,
   "product-grid": LayoutGrid,
   "cart-summary": ShoppingBag,
+  "product-page": LayoutTemplate,
 }
 
 export function getRegistryItemIcon(name: string): LucideIcon {
