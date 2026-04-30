@@ -10,6 +10,9 @@ const nextConfig: NextConfig = {
   assetPrefix: isProd ? "/ec-registry-demo/" : undefined,
   env: {
     NEXT_PUBLIC_BASE_PATH: basePath,
+    NEXT_PUBLIC_BASE_URL: isProd
+      ? "https://hajimism.github.io/ec-registry-demo"
+      : "http://localhost:3000",
   },
 }
 
