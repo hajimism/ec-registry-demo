@@ -63,7 +63,13 @@ const facets: Record<string, Set<string>> = {
 for (const item of registry.items) {
   if (!item.shopify) continue
 
-  const s = item.shopify as Record<string, unknown>
+  const s = item.shopify as {
+    objects?: string[]
+    view?: string
+    actions?: string[]
+    granularity?: string
+    surface?: string
+  }
   indexItems.push({
     name: item.name,
     title: item.title,
@@ -78,10 +84,10 @@ for (const item of registry.items) {
   })
 
   for (const obj of s.objects ?? []) facets.objects.add(obj)
-  if (s.view) facets.views.add(s.view)
+  if (s.view) facets.views.add(s.view as string)
   for (const act of s.actions ?? []) facets.actions.add(act)
-  if (s.granularity) facets.granularities.add(s.granularity)
-  if (s.surface) facets.surfaces.add(s.surface)
+  if (s.granularity) facets.granularities.add(s.granularity as string)
+  if (s.surface) facets.surfaces.add(s.surface as string)
 }
 
 const index = {
@@ -114,9 +120,15 @@ type SearchEntry = {
 const searchEntries: SearchEntry[] = registry.items
   .filter((item: RegistryItem) => item.shopify)
   .map((item: RegistryItem) => {
-    const s = item.shopify as Record<string, unknown>
-    const objects: string[] = s.objects ?? []
-    const actions: string[] = s.actions ?? []
+    const s = item.shopify as {
+      objects?: string[]
+      view?: string
+      actions?: string[]
+      granularity?: string
+      surface?: string
+    }
+    const objects = s.objects ?? []
+    const actions = s.actions ?? []
     const keywords = [
       item.name,
       item.title ?? "",

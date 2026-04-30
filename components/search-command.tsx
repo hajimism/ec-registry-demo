@@ -40,7 +40,7 @@ export function SearchCommand({ open, onOpenChange }: SearchCommandProps) {
 
   React.useEffect(() => {
     if (open && !loaded) {
-      fetch("/r/search-index.json")
+      fetch(`${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/r/search-index.json`)
         .then((r) => r.json())
         .then((data) => {
           setEntries(data)
