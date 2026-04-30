@@ -1,0 +1,46 @@
+[
+  {
+    "name": "product-card",
+    "title": "Product Card",
+    "description": "Shopify Product のカードビュー。グリッド表示用。FC<{product: ProductCardFragment}>",
+    "objects": ["Product"],
+    "view": "card",
+    "granularity": "model-view",
+    "surface": "storefront",
+    "actions": ["read"],
+    "keywords": "product-card product card shopify product のカードビュー。グリッド表示用。fc<{product: productcardfragment}> product card model-view storefront read"
+  },
+  {
+    "name": "product-detail",
+    "title": "Product Detail",
+    "description": "Shopify Product の詳細ビュー。商品ページ用。FC<{product: ProductDetailFragment}>",
+    "objects": ["Product"],
+    "view": "detail-panel",
+    "granularity": "model-view",
+    "surface": "storefront",
+    "actions": ["read"],
+    "keywords": "product-detail product detail shopify product の詳細ビュー。商品ページ用。fc<{product: productdetailfragment}> product detail-panel model-view storefront read"
+  },
+  {
+    "name": "product-grid",
+    "title": "Product Grid",
+    "description": "Shopify Product[] のグリッドビュー。検索・フィルター・ソート付き。FC<{products: ProductCardFragment[]}>",
+    "objects": ["Product"],
+    "view": "table",
+    "granularity": "template",
+    "surface": "storefront",
+    "actions": ["read", "select"],
+    "keywords": "product-grid product grid shopify product[] のグリッドビュー。検索・フィルター・ソート付き。fc<{products: productcardfragment[]}> product table template storefront read select"
+  },
+  {
+    "name": "cart-summary",
+    "title": "Cart Summary",
+    "description": "Shopify Cart のサマリービュー。カートサイドバー/ページ用。FC<{cart: CartSummaryFragment}>",
+    "objects": ["Cart", "CartLine"],
+    "view": "summary-stat",
+    "granularity": "template",
+    "surface": "storefront",
+    "actions": ["read", "edit", "delete"],
+    "keywords": "cart-summary cart summary shopify cart のサマリービュー。カートサイドバー/ページ用。fc<{cart: cartsummaryfragment}> cart cartline summary-stat template storefront read edit delete"
+  }
+]

@@ -1,0 +1,34 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "product-card",
+  "title": "Product Card",
+  "description": "Shopify Product のカードビュー。グリッド表示用。FC<{product: ProductCardFragment}>",
+  "dependencies": ["lucide-react"],
+  "registryDependencies": ["card", "button"],
+  "files": [
+    {
+      "path": "registry/new-york/product-card/product-card.tsx",
+      "content": "\"use client\"\n\nimport { ShoppingCart } from \"lucide-react\"\nimport type * as React from \"react\"\nimport { Button } from \"@/components/ui/button\"\nimport { Card, CardContent, CardFooter } from \"@/components/ui/card\"\nimport type { ProductCardFragment } from \"@/generated/storefront.generated\"\n\nfunction formatMoney(amount: string, currencyCode: string): string {\n  return new Intl.NumberFormat(\"ja-JP\", {\n    style: \"currency\",\n    currency: currencyCode,\n    minimumFractionDigits: 0,\n  }).format(Number(amount))\n}\n\nexport const ProductCard: React.FC<{ product: ProductCardFragment }> = ({\n  product,\n}) => {\n  const price = product.priceRange.minVariantPrice\n  const compareAt = product.compareAtPriceRange.minVariantPrice\n  const hasDiscount =\n    Number(compareAt.amount) > 0 &&\n    Number(compareAt.amount) > Number(price.amount)\n  const discount = hasDiscount\n    ? Math.round((1 - Number(price.amount) / Number(compareAt.amount)) * 100)\n    : null\n\n  return (\n    <Card className=\"group overflow-hidden rounded-2xl border border-border/60 bg-card/80 shadow-[0_1px_2px_rgba(0,0,0,0.04)] ring-1 ring-black/3 transition-[box-shadow,transform] duration-300 hover:-translate-y-0.5 hover:shadow-[0_12px_24px_rgba(0,0,0,0.06)] dark:ring-white/6 dark:hover:shadow-[0_12px_40px_rgba(0,0,0,0.35)]\">\n      <div className=\"relative aspect-4/5 overflow-hidden bg-linear-to-b from-muted/50 to-muted\">\n        {product.featuredImage && (\n          <img\n            src={product.featuredImage.url}\n            alt={product.featuredImage.altText ?? product.title}\n            width={product.featuredImage.width ?? undefined}\n            height={product.featuredImage.height ?? undefined}\n            className=\"h-full w-full object-cover transition duration-500 ease-out group-hover:scale-[1.03]\"\n          />\n        )}\n        <div className=\"pointer-events-none absolute inset-0 bg-linear-to-t from-black/3 to-transparent\" />\n        {discount != null && (\n          <span className=\"absolute right-3 top-3 rounded-full bg-foreground/88 px-2.5 py-1 text-[11px] font-semibold tracking-wide text-background backdrop-blur-sm dark:bg-background/88 dark:text-foreground\">\n            −{discount}%\n          </span>\n        )}\n        {!product.availableForSale && (\n          <div className=\"absolute inset-0 flex items-center justify-center bg-background/65 backdrop-blur-[2px]\">\n            <span className=\"rounded-full bg-foreground/90 px-4 py-1.5 text-[12px] font-medium tracking-wide text-background\">\n              品切れ\n            </span>\n          </div>\n        )}\n      </div>\n\n      <CardContent className=\"space-y-3 p-4 pt-4\">\n        <div>\n          <p className=\"text-[10px] font-semibold uppercase tracking-[0.16em] text-muted-foreground\">\n            {product.vendor}\n          </p>\n          <h3 className=\"mt-1.5 line-clamp-2 text-[15px] font-semibold leading-snug tracking-tight text-foreground\">\n            {product.title}\n          </h3>\n        </div>\n\n        <div className=\"flex flex-wrap items-baseline gap-x-2 gap-y-0.5\">\n          <span className=\"text-lg font-semibold tabular-nums tracking-tight\">\n            {formatMoney(price.amount, price.currencyCode)}\n          </span>\n          {hasDiscount && (\n            <span className=\"text-[13px] text-muted-foreground line-through tabular-nums\">\n              {formatMoney(compareAt.amount, compareAt.currencyCode)}\n            </span>\n          )}\n        </div>\n      </CardContent>\n\n      <CardFooter className=\"p-4 pt-0\">\n        <Button\n          className=\"h-10 w-full rounded-full text-[13px] font-medium shadow-none transition-[opacity,box-shadow] disabled:opacity-40\"\n          size=\"sm\"\n          disabled={!product.availableForSale}\n        >\n          <ShoppingCart\n            className=\"mr-2 h-4 w-4 opacity-70\"\n            strokeWidth={1.75}\n          />\n          カートに追加\n        </Button>\n      </CardFooter>\n    </Card>\n  )\n}\n\nexport default ProductCard\n",
+      "type": "registry:component",
+      "target": "~/components/ec/product-card.tsx"
+    },
+    {
+      "path": "registry/new-york/product-card/product-card.fragment.ts",
+      "content": "export const PRODUCT_CARD_FRAGMENT = `#graphql\n  fragment ProductCard on Product {\n    id\n    handle\n    title\n    featuredImage {\n      url\n      altText\n      width\n      height\n    }\n    priceRange {\n      minVariantPrice {\n        amount\n        currencyCode\n      }\n      maxVariantPrice {\n        amount\n        currencyCode\n      }\n    }\n    compareAtPriceRange {\n      minVariantPrice {\n        amount\n        currencyCode\n      }\n    }\n    availableForSale\n    vendor\n  }\n` as const\n",
+      "type": "registry:file",
+      "target": "~/components/ec/product-card.fragment.ts"
+    }
+  ],
+  "type": "registry:block",
+  "shopify": {
+    "objects": ["Product"],
+    "view": "card",
+    "actions": ["read"],
+    "granularity": "model-view",
+    "surface": "storefront",
+    "api": {
+      "minVersion": "2025-01",
+      "fragmentExports": ["PRODUCT_CARD_FRAGMENT"]
+    }
+  }
+}

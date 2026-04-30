@@ -1,0 +1,126 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "ec-registry",
+  "homepage": "http://localhost:3000",
+  "items": [
+    {
+      "name": "product-card",
+      "type": "registry:block",
+      "title": "Product Card",
+      "description": "Shopify Product のカードビュー。グリッド表示用。FC<{product: ProductCardFragment}>",
+      "registryDependencies": ["card", "button"],
+      "dependencies": ["lucide-react"],
+      "shopify": {
+        "objects": ["Product"],
+        "view": "card",
+        "actions": ["read"],
+        "granularity": "model-view",
+        "surface": "storefront",
+        "api": {
+          "minVersion": "2025-01",
+          "fragmentExports": ["PRODUCT_CARD_FRAGMENT"]
+        }
+      },
+      "files": [
+        {
+          "path": "registry/new-york/product-card/product-card.tsx",
+          "type": "registry:component",
+          "target": "~/components/ec/product-card.tsx"
+        },
+        {
+          "path": "registry/new-york/product-card/product-card.fragment.ts",
+          "type": "registry:file",
+          "target": "~/components/ec/product-card.fragment.ts"
+        }
+      ]
+    },
+    {
+      "name": "product-detail",
+      "type": "registry:block",
+      "title": "Product Detail",
+      "description": "Shopify Product の詳細ビュー。商品ページ用。FC<{product: ProductDetailFragment}>",
+      "registryDependencies": ["badge", "button", "separator"],
+      "dependencies": ["lucide-react"],
+      "shopify": {
+        "objects": ["Product"],
+        "view": "detail-panel",
+        "actions": ["read"],
+        "granularity": "model-view",
+        "surface": "storefront",
+        "api": {
+          "minVersion": "2025-01",
+          "fragmentExports": ["PRODUCT_DETAIL_FRAGMENT"]
+        }
+      },
+      "files": [
+        {
+          "path": "registry/new-york/product-detail/product-detail.tsx",
+          "type": "registry:component",
+          "target": "~/components/ec/product-detail.tsx"
+        },
+        {
+          "path": "registry/new-york/product-detail/product-detail.fragment.ts",
+          "type": "registry:file",
+          "target": "~/components/ec/product-detail.fragment.ts"
+        }
+      ]
+    },
+    {
+      "name": "product-grid",
+      "type": "registry:block",
+      "title": "Product Grid",
+      "description": "Shopify Product[] のグリッドビュー。検索・フィルター・ソート付き。FC<{products: ProductCardFragment[]}>",
+      "registryDependencies": ["input", "select", "product-card"],
+      "dependencies": ["lucide-react"],
+      "shopify": {
+        "objects": ["Product"],
+        "view": "table",
+        "actions": ["read", "select"],
+        "granularity": "template",
+        "surface": "storefront",
+        "api": {
+          "minVersion": "2025-01",
+          "fragmentExports": []
+        }
+      },
+      "files": [
+        {
+          "path": "registry/new-york/product-grid/product-grid.tsx",
+          "type": "registry:component",
+          "target": "~/components/ec/product-grid.tsx"
+        }
+      ]
+    },
+    {
+      "name": "cart-summary",
+      "type": "registry:block",
+      "title": "Cart Summary",
+      "description": "Shopify Cart のサマリービュー。カートサイドバー/ページ用。FC<{cart: CartSummaryFragment}>",
+      "registryDependencies": ["card", "button", "separator"],
+      "dependencies": ["lucide-react"],
+      "shopify": {
+        "objects": ["Cart", "CartLine"],
+        "view": "summary-stat",
+        "actions": ["read", "edit", "delete"],
+        "granularity": "template",
+        "surface": "storefront",
+        "api": {
+          "minVersion": "2025-01",
+          "fragmentExports": ["CART_SUMMARY_FRAGMENT", "CART_LINE_FRAGMENT"]
+        }
+      },
+      "files": [
+        {
+          "path": "registry/new-york/cart-summary/cart-summary.tsx",
+          "type": "registry:component",
+          "target": "~/components/ec/cart-summary.tsx"
+        },
+        {
+          "path": "registry/new-york/cart-summary/cart-summary.fragment.ts",
+          "type": "registry:file",
+          "target": "~/components/ec/cart-summary.fragment.ts"
+        }
+      ]
+    }
+  ]
+}

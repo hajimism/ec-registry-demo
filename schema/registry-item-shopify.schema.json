@@ -1,0 +1,126 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://ec-registry.example.com/schema/registry-item-shopify.schema.json",
+  "title": "Shopify Registry Item Metadata",
+  "description": "registry-item.json の shopify 名前空間。Shopify Storefront / Customer Account API に紐づくコンポーネントメタデータ。",
+  "type": "object",
+  "properties": {
+    "objects": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "Product",
+          "ProductVariant",
+          "Collection",
+          "Cart",
+          "CartLine",
+          "Order",
+          "OrderLineItem",
+          "Fulfillment",
+          "FulfillmentLineItem",
+          "Customer",
+          "MailingAddress",
+          "Article",
+          "Blog",
+          "Page",
+          "Menu",
+          "MenuItem",
+          "SellingPlan",
+          "SellingPlanGroup",
+          "Location",
+          "Metaobject",
+          "Metafield",
+          "Company",
+          "CompanyContact",
+          "CompanyLocation",
+          "PredictiveSearchResult",
+          "SearchQuerySuggestion",
+          "MoneyV2",
+          "Image",
+          "Shop",
+          "Filter",
+          "CustomerAddress",
+          "DraftOrder",
+          "DraftOrderLineItem",
+          "LineItem",
+          "Return",
+          "ReturnLineItem",
+          "FulfillmentEvent",
+          "Refund",
+          "SubscriptionContract",
+          "SubscriptionLine",
+          "SubscriptionBillingCycle",
+          "StoreCreditAccount"
+        ]
+      },
+      "minItems": 1,
+      "description": "Shopify GraphQL 型名。fragment の on 句と 1:1 対応。"
+    },
+    "view": {
+      "type": "string",
+      "enum": [
+        "list-row",
+        "table",
+        "card",
+        "detail-panel",
+        "picker",
+        "inline-chip",
+        "summary-stat",
+        "timeline-event",
+        "form"
+      ],
+      "description": "UI パターン。将来拡張可。",
+      "x-extensible": true
+    },
+    "actions": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "read",
+          "select",
+          "create",
+          "edit",
+          "delete",
+          "bulk-edit",
+          "transition"
+        ]
+      },
+      "minItems": 1,
+      "description": "コンポーネントがサポートする操作。"
+    },
+    "granularity": {
+      "type": "string",
+      "enum": ["primitive", "model-view", "template"],
+      "description": "primitive: ドメインスカラ表示。model-view: Object×View 単位。template: 画面相当。"
+    },
+    "surface": {
+      "type": "string",
+      "enum": ["storefront", "customer-account"],
+      "description": "対象 API サーフェス。"
+    },
+    "api": {
+      "type": "object",
+      "properties": {
+        "minVersion": {
+          "type": "string",
+          "pattern": "^\\d{4}-\\d{2}$",
+          "description": "必要な最小 Shopify API バージョン (e.g. 2025-01)"
+        },
+        "fragmentExports": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Z][A-Z0-9_]*$"
+          },
+          "description": "co-locate された fragment の export 名 (SCREAMING_SNAKE_CASE)"
+        }
+      },
+      "required": ["minVersion", "fragmentExports"],
+      "additionalProperties": false
+    }
+  },
+  "required": ["objects", "view", "actions", "granularity", "surface", "api"],
+  "additionalProperties": false
+}

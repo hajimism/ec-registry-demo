@@ -1,0 +1,59 @@
+{
+  "items": [
+    {
+      "name": "product-card",
+      "title": "Product Card",
+      "description": "Shopify Product のカードビュー。グリッド表示用。FC<{product: ProductCardFragment}>",
+      "shopify": {
+        "objects": ["Product"],
+        "view": "card",
+        "actions": ["read"],
+        "granularity": "model-view",
+        "surface": "storefront"
+      }
+    },
+    {
+      "name": "product-detail",
+      "title": "Product Detail",
+      "description": "Shopify Product の詳細ビュー。商品ページ用。FC<{product: ProductDetailFragment}>",
+      "shopify": {
+        "objects": ["Product"],
+        "view": "detail-panel",
+        "actions": ["read"],
+        "granularity": "model-view",
+        "surface": "storefront"
+      }
+    },
+    {
+      "name": "product-grid",
+      "title": "Product Grid",
+      "description": "Shopify Product[] のグリッドビュー。検索・フィルター・ソート付き。FC<{products: ProductCardFragment[]}>",
+      "shopify": {
+        "objects": ["Product"],
+        "view": "table",
+        "actions": ["read", "select"],
+        "granularity": "template",
+        "surface": "storefront"
+      }
+    },
+    {
+      "name": "cart-summary",
+      "title": "Cart Summary",
+      "description": "Shopify Cart のサマリービュー。カートサイドバー/ページ用。FC<{cart: CartSummaryFragment}>",
+      "shopify": {
+        "objects": ["Cart", "CartLine"],
+        "view": "summary-stat",
+        "actions": ["read", "edit", "delete"],
+        "granularity": "template",
+        "surface": "storefront"
+      }
+    }
+  ],
+  "facets": {
+    "objects": ["Cart", "CartLine", "Product"],
+    "views": ["card", "detail-panel", "summary-stat", "table"],
+    "actions": ["delete", "edit", "read", "select"],
+    "granularities": ["model-view", "template"],
+    "surfaces": ["storefront"]
+  }
+}

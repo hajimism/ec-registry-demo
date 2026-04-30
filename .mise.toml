@@ -1,0 +1,10 @@
+[tools]
+node = "24"
+bun = "1.3"
+
+[shell_alias]
+mi = "bun install"
+mr = "bun run"
+ma = "bun add"
+mad = "bun add -D"
+mx = "bunx"
