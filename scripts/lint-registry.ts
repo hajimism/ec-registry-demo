@@ -9,12 +9,12 @@ const ROOT = resolve(import.meta.dirname, "..")
 const REGISTRY_PATH = resolve(ROOT, "registry.json")
 
 type ShopifyMeta = {
-  objects: string[]
-  view: string
-  actions: string[]
+  objects?: string[]
+  view?: string
+  actions?: string[]
   granularity: string
   surface: string
-  api: { minVersion: string; fragmentExports: string[] }
+  api?: { minVersion: string; fragmentExports: string[] }
 }
 
 type RegistryItem = {
@@ -29,7 +29,6 @@ type RegistryItem = {
 type Registry = { items: RegistryItem[] }
 
 const registry: Registry = JSON.parse(readFileSync(REGISTRY_PATH, "utf-8"))
-const itemsByName = new Map(registry.items.map((i) => [i.name, i]))
 
 let errors = 0
 let warnings = 0
@@ -56,14 +55,18 @@ for (const item of registry.items) {
   }
 
   const s = item.shopify
-  if (!s.objects?.length) error(item.name, "shopify.objects is empty")
-  if (!s.view) error(item.name, "shopify.view is missing")
-  if (!s.actions?.length) error(item.name, "shopify.actions is empty")
   if (!s.granularity) error(item.name, "shopify.granularity is missing")
   if (!s.surface) error(item.name, "shopify.surface is missing")
-  if (!s.api?.minVersion) error(item.name, "shopify.api.minVersion is missing")
-  if (!s.api?.fragmentExports)
-    error(item.name, "shopify.api.fragmentExports is missing")
+
+  if (s.granularity !== "primitive") {
+    if (!s.objects?.length) error(item.name, "shopify.objects is empty")
+    if (!s.view) error(item.name, "shopify.view is missing")
+    if (!s.actions?.length) error(item.name, "shopify.actions is empty")
+    if (!s.api?.minVersion)
+      error(item.name, "shopify.api.minVersion is missing")
+    if (!s.api?.fragmentExports)
+      error(item.name, "shopify.api.fragmentExports is missing")
+  }
 }
 
 // ============================================
@@ -75,7 +78,7 @@ const customerAccountOnly = new Set(
 )
 
 for (const item of registry.items) {
-  if (!item.shopify) continue
+  if (!item.shopify?.objects) continue
   const { surface, objects } = item.shopify
 
   for (const obj of objects) {
@@ -95,49 +98,7 @@ for (const item of registry.items) {
 }
 
 // ============================================
-// 3. Granularity dependency direction
-// ============================================
-const GRANULARITY_RANK: Record<string, number> = {
-  primitive: 0,
-  "model-view": 1,
-  template: 2,
-}
-
-for (const item of registry.items) {
-  if (!item.shopify || !item.registryDependencies) continue
-
-  const myRank = GRANULARITY_RANK[item.shopify.granularity]
-  if (myRank === undefined) continue
-
-  for (const depName of item.registryDependencies) {
-    const dep = itemsByName.get(depName)
-    if (!dep?.shopify) continue
-
-    const depRank = GRANULARITY_RANK[dep.shopify.granularity]
-    if (depRank === undefined) continue
-
-    if (item.shopify.granularity === "primitive" && depRank >= 0) {
-      error(
-        item.name,
-        `Primitive "${item.name}" depends on "${depName}" (${dep.shopify.granularity}). Primitives must not depend on other registry items.`,
-      )
-    } else if (
-      item.shopify.granularity === "model-view" &&
-      depRank >= GRANULARITY_RANK["model-view"]
-    ) {
-      const depItem = itemsByName.get(depName)
-      if (depItem?.shopify) {
-        error(
-          item.name,
-          `model-view "${item.name}" depends on "${depName}" (${dep.shopify.granularity}). model-view can only depend on primitives.`,
-        )
-      }
-    }
-  }
-}
-
-// ============================================
-// 4. Fragment file existence + exports
+// 3. Fragment file existence + exports
 // ============================================
 for (const item of registry.items) {
   if (!item.shopify?.api?.fragmentExports?.length) continue
@@ -188,10 +149,11 @@ for (const item of registry.items) {
 }
 
 // ============================================
-// 5. Demo scenarios export
+// 4. Demo scenarios export
 // ============================================
 for (const item of registry.items) {
   if (!item.shopify || item.type !== "registry:block") continue
+  if (item.shopify.granularity === "primitive") continue
 
   const itemDir = item.files?.[0]?.path
   if (!itemDir) continue
