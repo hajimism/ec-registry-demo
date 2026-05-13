@@ -1,6 +1,51 @@
 {
   "items": [
     {
+      "name": "button",
+      "title": "Button",
+      "description": "汎用ボタン。カート追加・フォーム送信など EC アクション UI の基盤。",
+      "shopify": {
+        "granularity": "primitive",
+        "surface": "storefront"
+      }
+    },
+    {
+      "name": "card",
+      "title": "Card",
+      "description": "汎用カードコンテナ。商品カード・カートアイテムなどの外枠。",
+      "shopify": {
+        "granularity": "primitive",
+        "surface": "storefront"
+      }
+    },
+    {
+      "name": "input",
+      "title": "Input",
+      "description": "汎用テキスト入力。検索・数量入力などに使用。",
+      "shopify": {
+        "granularity": "primitive",
+        "surface": "storefront"
+      }
+    },
+    {
+      "name": "label",
+      "title": "Label",
+      "description": "フォームラベル。入力フィールドとの関連付け用。",
+      "shopify": {
+        "granularity": "primitive",
+        "surface": "storefront"
+      }
+    },
+    {
+      "name": "textarea",
+      "title": "Textarea",
+      "description": "複数行テキスト入力。レビュー・備考欄などに使用。",
+      "shopify": {
+        "granularity": "primitive",
+        "surface": "storefront"
+      }
+    },
+    {
       "name": "product-card",
       "title": "Product Card",
       "description": "Shopify Product のカードビュー。グリッド表示用。FC<{product: ProductCardFragment}>",
@@ -32,7 +77,7 @@
         "objects": ["Product"],
         "view": "table",
         "actions": ["read", "select"],
-        "granularity": "template",
+        "granularity": "model-view",
         "surface": "storefront"
       }
     },
@@ -44,6 +89,18 @@
         "objects": ["Cart", "CartLine"],
         "view": "summary-stat",
         "actions": ["read", "edit", "delete"],
+        "granularity": "model-view",
+        "surface": "storefront"
+      }
+    },
+    {
+      "name": "product-page",
+      "title": "Product Page",
+      "description": "商品詳細 + 関連商品 + カートサイドバーを組み合わせた商品ページテンプレート。Product と Cart を跨ぐ。",
+      "shopify": {
+        "objects": ["Product", "Cart"],
+        "view": "detail-panel",
+        "actions": ["read", "select", "edit", "delete"],
         "granularity": "template",
         "surface": "storefront"
       }
@@ -53,7 +110,7 @@
     "objects": ["Cart", "CartLine", "Product"],
     "views": ["card", "detail-panel", "summary-stat", "table"],
     "actions": ["delete", "edit", "read", "select"],
-    "granularities": ["model-view", "template"],
+    "granularities": ["model-view", "primitive", "template"],
     "surfaces": ["storefront"]
   }
 }

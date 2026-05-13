@@ -18,7 +18,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: { default: "EC Registry", template: "%s — EC Registry" },
   description:
-    "EC ドメイン向け shadcn レジストリ。ブロックのプレビューとインストール。",
+    "Shadcn registry blocks for e-commerce (Shopify). Preview and install.",
 }
 
 const items = mergeRegistryMeta(registry.items).filter(

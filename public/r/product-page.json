@@ -1,0 +1,33 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "product-page",
+  "title": "Product Page",
+  "description": "商品詳細 + 関連商品 + カートサイドバーを組み合わせた商品ページテンプレート。Product と Cart を跨ぐ。",
+  "dependencies": [],
+  "registryDependencies": [
+    "product-detail",
+    "product-grid",
+    "cart-summary",
+    "separator"
+  ],
+  "files": [
+    {
+      "path": "registry/new-york/product-page/product-page.tsx",
+      "content": "\"use client\"\n\nimport type * as React from \"react\"\nimport { CartSummary } from \"@/components/ec/cart-summary\"\nimport { ProductDetail } from \"@/components/ec/product-detail\"\nimport { ProductGrid } from \"@/components/ec/product-grid\"\nimport { Separator } from \"@/components/ui/separator\"\nimport type {\n  CartSummaryFragment,\n  ProductCardFragment,\n  ProductDetailFragment,\n} from \"@/generated/storefront.generated\"\n\nexport const ProductPage: React.FC<{\n  product: ProductDetailFragment\n  relatedProducts: ProductCardFragment[]\n  cart: CartSummaryFragment\n  onQuantityChange?: (lineId: string, quantity: number) => void\n  onRemove?: (lineId: string) => void\n}> = ({ product, relatedProducts, cart, onQuantityChange, onRemove }) => (\n  <div className=\"grid gap-10 lg:grid-cols-[1fr_380px]\">\n    <div className=\"min-w-0 space-y-12\">\n      <ProductDetail product={product} />\n\n      {relatedProducts.length > 0 && (\n        <>\n          <Separator className=\"bg-border/60\" />\n          <section>\n            <h2 className=\"mb-6 text-lg font-semibold tracking-tight\">\n              関連商品\n            </h2>\n            <ProductGrid products={relatedProducts} />\n          </section>\n        </>\n      )}\n    </div>\n\n    <aside className=\"lg:sticky lg:top-6 lg:self-start\">\n      <CartSummary\n        cart={cart}\n        onQuantityChange={onQuantityChange}\n        onRemove={onRemove}\n      />\n    </aside>\n  </div>\n)\n\nexport default ProductPage\n",
+      "type": "registry:component",
+      "target": "~/components/ec/product-page.tsx"
+    }
+  ],
+  "type": "registry:block",
+  "shopify": {
+    "objects": ["Product", "Cart"],
+    "view": "detail-panel",
+    "actions": ["read", "select", "edit", "delete"],
+    "granularity": "template",
+    "surface": "storefront",
+    "api": {
+      "minVersion": "2025-01",
+      "fragmentExports": []
+    }
+  }
+}

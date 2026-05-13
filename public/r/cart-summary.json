@@ -24,7 +24,7 @@
     "objects": ["Cart", "CartLine"],
     "view": "summary-stat",
     "actions": ["read", "edit", "delete"],
-    "granularity": "template",
+    "granularity": "model-view",
     "surface": "storefront",
     "api": {
       "minVersion": "2025-01",

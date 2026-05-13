@@ -1,8 +1,25 @@
+export type RegistryItemFile = {
+  path: string
+  type?: string
+  target?: string
+}
+
+export type RegistryPropReference = {
+  name: string
+  type: string
+  default?: string
+  description?: string
+}
+
 export type RegistryItemBase = {
   name: string
   title?: string
   description?: string
   type?: string
+  dependencies?: string[]
+  registryDependencies?: string[]
+  files?: RegistryItemFile[]
+  propsReference?: RegistryPropReference[]
   shopify?: {
     objects?: string[]
     view?: string

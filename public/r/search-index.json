@@ -1,5 +1,60 @@
 [
   {
+    "name": "button",
+    "title": "Button",
+    "description": "汎用ボタン。カート追加・フォーム送信など EC アクション UI の基盤。",
+    "objects": [],
+    "view": "",
+    "granularity": "primitive",
+    "surface": "storefront",
+    "actions": [],
+    "keywords": "button button 汎用ボタン。カート追加・フォーム送信など ec アクション ui の基盤。  primitive storefront"
+  },
+  {
+    "name": "card",
+    "title": "Card",
+    "description": "汎用カードコンテナ。商品カード・カートアイテムなどの外枠。",
+    "objects": [],
+    "view": "",
+    "granularity": "primitive",
+    "surface": "storefront",
+    "actions": [],
+    "keywords": "card card 汎用カードコンテナ。商品カード・カートアイテムなどの外枠。  primitive storefront"
+  },
+  {
+    "name": "input",
+    "title": "Input",
+    "description": "汎用テキスト入力。検索・数量入力などに使用。",
+    "objects": [],
+    "view": "",
+    "granularity": "primitive",
+    "surface": "storefront",
+    "actions": [],
+    "keywords": "input input 汎用テキスト入力。検索・数量入力などに使用。  primitive storefront"
+  },
+  {
+    "name": "label",
+    "title": "Label",
+    "description": "フォームラベル。入力フィールドとの関連付け用。",
+    "objects": [],
+    "view": "",
+    "granularity": "primitive",
+    "surface": "storefront",
+    "actions": [],
+    "keywords": "label label フォームラベル。入力フィールドとの関連付け用。  primitive storefront"
+  },
+  {
+    "name": "textarea",
+    "title": "Textarea",
+    "description": "複数行テキスト入力。レビュー・備考欄などに使用。",
+    "objects": [],
+    "view": "",
+    "granularity": "primitive",
+    "surface": "storefront",
+    "actions": [],
+    "keywords": "textarea textarea 複数行テキスト入力。レビュー・備考欄などに使用。  primitive storefront"
+  },
+  {
     "name": "product-card",
     "title": "Product Card",
     "description": "Shopify Product のカードビュー。グリッド表示用。FC<{product: ProductCardFragment}>",
@@ -27,10 +82,10 @@
     "description": "Shopify Product[] のグリッドビュー。検索・フィルター・ソート付き。FC<{products: ProductCardFragment[]}>",
     "objects": ["Product"],
     "view": "table",
-    "granularity": "template",
+    "granularity": "model-view",
     "surface": "storefront",
     "actions": ["read", "select"],
-    "keywords": "product-grid product grid shopify product[] のグリッドビュー。検索・フィルター・ソート付き。fc<{products: productcardfragment[]}> product table template storefront read select"
+    "keywords": "product-grid product grid shopify product[] のグリッドビュー。検索・フィルター・ソート付き。fc<{products: productcardfragment[]}> product table model-view storefront read select"
   },
   {
     "name": "cart-summary",
@@ -38,9 +93,20 @@
     "description": "Shopify Cart のサマリービュー。カートサイドバー/ページ用。FC<{cart: CartSummaryFragment}>",
     "objects": ["Cart", "CartLine"],
     "view": "summary-stat",
-    "granularity": "template",
+    "granularity": "model-view",
     "surface": "storefront",
     "actions": ["read", "edit", "delete"],
-    "keywords": "cart-summary cart summary shopify cart のサマリービュー。カートサイドバー/ページ用。fc<{cart: cartsummaryfragment}> cart cartline summary-stat template storefront read edit delete"
+    "keywords": "cart-summary cart summary shopify cart のサマリービュー。カートサイドバー/ページ用。fc<{cart: cartsummaryfragment}> cart cartline summary-stat model-view storefront read edit delete"
+  },
+  {
+    "name": "product-page",
+    "title": "Product Page",
+    "description": "商品詳細 + 関連商品 + カートサイドバーを組み合わせた商品ページテンプレート。Product と Cart を跨ぐ。",
+    "objects": ["Product", "Cart"],
+    "view": "detail-panel",
+    "granularity": "template",
+    "surface": "storefront",
+    "actions": ["read", "select", "edit", "delete"],
+    "keywords": "product-page product page 商品詳細 + 関連商品 + カートサイドバーを組み合わせた商品ページテンプレート。product と cart を跨ぐ。 product cart detail-panel template storefront read select edit delete"
   }
 ]

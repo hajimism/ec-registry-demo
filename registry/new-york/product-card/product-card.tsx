@@ -27,7 +27,7 @@ export const ProductCard: React.FC<{ product: ProductCardFragment }> = ({
     : null
 
   return (
-    <Card className="group overflow-hidden rounded-2xl border border-border/60 bg-card/80 shadow-[0_1px_2px_rgba(0,0,0,0.04)] ring-1 ring-black/3 transition-[box-shadow,transform] duration-300 hover:-translate-y-0.5 hover:shadow-[0_12px_24px_rgba(0,0,0,0.06)] dark:ring-white/6 dark:hover:shadow-[0_12px_40px_rgba(0,0,0,0.35)]">
+    <Card className="group gap-0 overflow-hidden rounded-2xl border border-border/60 bg-card/80 py-0 shadow-[0_1px_2px_rgba(0,0,0,0.04)] ring-1 ring-black/3 transition-[box-shadow,transform] duration-300 hover:-translate-y-0.5 hover:shadow-[0_12px_24px_rgba(0,0,0,0.06)] dark:ring-white/6 dark:hover:shadow-[0_12px_40px_rgba(0,0,0,0.35)]">
       <div className="relative aspect-4/5 overflow-hidden bg-linear-to-b from-muted/50 to-muted">
         {product.featuredImage && (
           <img

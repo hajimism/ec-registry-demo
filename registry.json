@@ -103,6 +103,13 @@
       "type": "registry:block",
       "title": "Product Card",
       "description": "Shopify Product のカードビュー。グリッド表示用。FC<{product: ProductCardFragment}>",
+      "propsReference": [
+        {
+          "name": "product",
+          "type": "ProductCardFragment",
+          "description": "Storefront の Product に対する GraphQL フラグメントの結果。codegen で PRODUCT_CARD_FRAGMENT と型が揃う。"
+        }
+      ],
       "registryDependencies": ["card", "button"],
       "dependencies": ["lucide-react"],
       "shopify": {

@@ -1,6 +1,6 @@
 "use client"
 
-import { Search } from "lucide-react"
+import { PanelLeftClose, Search } from "lucide-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { cn } from "@/lib/utils"
@@ -12,6 +12,9 @@ type SidebarProps = {
   categories: SidebarCategory[]
   primitives: PrimitiveEntry[]
   onSearchClick?: () => void
+  className?: string
+  dismissible?: boolean
+  onDismiss?: () => void
 }
 
 const NAV_LINKS = [{ href: "/", label: "All Components" }] as const
@@ -20,18 +23,36 @@ export function Sidebar({
   categories,
   primitives,
   onSearchClick,
+  className,
+  dismissible,
+  onDismiss,
 }: SidebarProps) {
   const pathname = usePathname()
 
   return (
-    <aside className="fixed inset-y-0 left-0 z-30 flex w-[220px] flex-col border-r border-border/50 bg-background lg:w-[240px]">
-      <div className="flex h-14 shrink-0 items-center px-5">
+    <aside
+      className={cn(
+        "fixed inset-y-0 left-0 z-30 flex w-[220px] flex-col border-r border-border/50 bg-background lg:w-[240px]",
+        className,
+      )}
+    >
+      <div className="flex h-14 shrink-0 items-center gap-2 px-5">
         <Link
           href="/"
-          className="text-[15px] font-semibold tracking-tight text-foreground"
+          className="min-w-0 flex-1 truncate text-[15px] font-semibold tracking-tight text-foreground"
         >
           EC Registry
         </Link>
+        {dismissible && onDismiss && (
+          <button
+            type="button"
+            onClick={onDismiss}
+            className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-md text-muted-foreground ring-1 ring-border/40 transition-colors hover:bg-muted hover:text-foreground"
+            aria-label="Close sidebar"
+          >
+            <PanelLeftClose className="h-4 w-4" strokeWidth={2} />
+          </button>
+        )}
       </div>
 
       <div className="px-3 pb-3">
@@ -41,7 +62,7 @@ export function Sidebar({
           className="flex h-9 w-full items-center gap-2.5 rounded-lg bg-muted/60 px-3 text-[13px] text-muted-foreground ring-1 ring-border/40 transition-colors hover:bg-muted"
         >
           <Search className="h-3.5 w-3.5 shrink-0" strokeWidth={2} />
-          <span className="flex-1 text-left">検索</span>
+          <span className="flex-1 text-left">Search</span>
           <kbd className="hidden rounded bg-background px-1.5 py-0.5 font-mono text-[10px] text-muted-foreground ring-1 ring-border/60 sm:inline-block">
             ⌘K
           </kbd>

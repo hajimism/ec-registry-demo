@@ -42,5 +42,5 @@ export default async function RegistryItemPage({ params }: PageProps) {
     (typeof registry.homepage === "string" && registry.homepage) ||
     "http://localhost:3000"
 
-  return <RegistryDetail item={item} baseUrl={baseUrl} />
+  return <RegistryDetail item={item} baseUrl={baseUrl} allItems={items} />
 }

@@ -73,13 +73,13 @@ export function SearchCommand({ open, onOpenChange }: SearchCommandProps) {
     <CommandDialog
       open={open}
       onOpenChange={onOpenChange}
-      title="コンポーネント検索"
-      description="名前やオブジェクトで検索"
+      title="Search components"
+      description="Filter by name or Shopify object"
       filter={searchFilter}
     >
-      <CommandInput placeholder="検索..." />
+      <CommandInput placeholder="Search…" />
       <CommandList>
-        <CommandEmpty>見つかりませんでした</CommandEmpty>
+        <CommandEmpty>No results</CommandEmpty>
         {[...grouped.entries()].map(([object, items]) => (
           <CommandGroup key={object} heading={object}>
             {items.map((entry) => {

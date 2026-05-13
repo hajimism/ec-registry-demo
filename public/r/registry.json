@@ -1,13 +1,115 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry.json",
   "name": "ec-registry",
-  "homepage": "http://localhost:3000",
+  "homepage": "https://hajimism.github.io/ec-registry-demo",
   "items": [
+    {
+      "name": "button",
+      "type": "registry:block",
+      "title": "Button",
+      "description": "汎用ボタン。カート追加・フォーム送信など EC アクション UI の基盤。",
+      "registryDependencies": [],
+      "dependencies": ["@radix-ui/react-slot", "class-variance-authority"],
+      "shopify": {
+        "granularity": "primitive",
+        "surface": "storefront"
+      },
+      "files": [
+        {
+          "path": "registry/new-york/ui/button.tsx",
+          "type": "registry:component",
+          "target": "~/components/ui/button.tsx"
+        }
+      ]
+    },
+    {
+      "name": "card",
+      "type": "registry:block",
+      "title": "Card",
+      "description": "汎用カードコンテナ。商品カード・カートアイテムなどの外枠。",
+      "registryDependencies": [],
+      "dependencies": [],
+      "shopify": {
+        "granularity": "primitive",
+        "surface": "storefront"
+      },
+      "files": [
+        {
+          "path": "registry/new-york/ui/card.tsx",
+          "type": "registry:component",
+          "target": "~/components/ui/card.tsx"
+        }
+      ]
+    },
+    {
+      "name": "input",
+      "type": "registry:block",
+      "title": "Input",
+      "description": "汎用テキスト入力。検索・数量入力などに使用。",
+      "registryDependencies": [],
+      "dependencies": [],
+      "shopify": {
+        "granularity": "primitive",
+        "surface": "storefront"
+      },
+      "files": [
+        {
+          "path": "registry/new-york/ui/input.tsx",
+          "type": "registry:component",
+          "target": "~/components/ui/input.tsx"
+        }
+      ]
+    },
+    {
+      "name": "label",
+      "type": "registry:block",
+      "title": "Label",
+      "description": "フォームラベル。入力フィールドとの関連付け用。",
+      "registryDependencies": [],
+      "dependencies": ["@radix-ui/react-label"],
+      "shopify": {
+        "granularity": "primitive",
+        "surface": "storefront"
+      },
+      "files": [
+        {
+          "path": "registry/new-york/ui/label.tsx",
+          "type": "registry:component",
+          "target": "~/components/ui/label.tsx"
+        }
+      ]
+    },
+    {
+      "name": "textarea",
+      "type": "registry:block",
+      "title": "Textarea",
+      "description": "複数行テキスト入力。レビュー・備考欄などに使用。",
+      "registryDependencies": [],
+      "dependencies": [],
+      "shopify": {
+        "granularity": "primitive",
+        "surface": "storefront"
+      },
+      "files": [
+        {
+          "path": "registry/new-york/ui/textarea.tsx",
+          "type": "registry:component",
+          "target": "~/components/ui/textarea.tsx"
+        }
+      ]
+    },
     {
       "name": "product-card",
       "type": "registry:block",
       "title": "Product Card",
       "description": "Shopify Product のカードビュー。グリッド表示用。FC<{product: ProductCardFragment}>",
+      "propsReference": [
+        {
+          "name": "product",
+          "type": "ProductCardFragment",
+          "description": "Storefront の Product に対する GraphQL フラグメントの結果。codegen で PRODUCT_CARD_FRAGMENT と型が揃う。"
+        }
+      ],
       "registryDependencies": ["card", "button"],
       "dependencies": ["lucide-react"],
       "shopify": {
@@ -76,7 +178,7 @@
         "objects": ["Product"],
         "view": "table",
         "actions": ["read", "select"],
-        "granularity": "template",
+        "granularity": "model-view",
         "surface": "storefront",
         "api": {
           "minVersion": "2025-01",
@@ -102,7 +204,7 @@
         "objects": ["Cart", "CartLine"],
         "view": "summary-stat",
         "actions": ["read", "edit", "delete"],
-        "granularity": "template",
+        "granularity": "model-view",
         "surface": "storefront",
         "api": {
           "minVersion": "2025-01",
@@ -119,6 +221,37 @@
           "path": "registry/new-york/cart-summary/cart-summary.fragment.ts",
           "type": "registry:file",
           "target": "~/components/ec/cart-summary.fragment.ts"
+        }
+      ]
+    },
+    {
+      "name": "product-page",
+      "type": "registry:block",
+      "title": "Product Page",
+      "description": "商品詳細 + 関連商品 + カートサイドバーを組み合わせた商品ページテンプレート。Product と Cart を跨ぐ。",
+      "registryDependencies": [
+        "product-detail",
+        "product-grid",
+        "cart-summary",
+        "separator"
+      ],
+      "dependencies": [],
+      "shopify": {
+        "objects": ["Product", "Cart"],
+        "view": "detail-panel",
+        "actions": ["read", "select", "edit", "delete"],
+        "granularity": "template",
+        "surface": "storefront",
+        "api": {
+          "minVersion": "2025-01",
+          "fragmentExports": []
+        }
+      },
+      "files": [
+        {
+          "path": "registry/new-york/product-page/product-page.tsx",
+          "type": "registry:component",
+          "target": "~/components/ec/product-page.tsx"
         }
       ]
     }
