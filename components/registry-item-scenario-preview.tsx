@@ -105,7 +105,7 @@ function ScenarioShell<P>({
       </div>
       <div
         className={cn(
-          "min-h-0 overflow-auto rounded-lg border border-border/50 bg-muted/35 p-3 ring-1 ring-black/[0.03] md:p-4 [scrollbar-width:thin] dark:bg-muted/20 dark:ring-white/[0.06]",
+          "min-h-0 overflow-auto rounded-lg border border-border/50 bg-muted/35 p-3 ring-1 ring-black/3 md:p-4 [scrollbar-width:thin] dark:bg-muted/20 dark:ring-white/6",
         )}
       >
         {current ? render(current.props) : null}

@@ -242,7 +242,7 @@ export function RegistryDetail({
                 >
                   Install
                 </h2>
-                <div className="rounded-xl border border-border/55 bg-card p-5 shadow-sm ring-1 ring-black/[0.03] dark:ring-white/[0.06]">
+                <div className="rounded-xl border border-border/55 bg-card p-5 shadow-sm ring-1 ring-black/3 dark:ring-white/6">
                   <div className="mb-4 flex flex-wrap gap-2">
                     {(["npx", "pnpm", "yarn", "bun"] as const).map((k) => (
                       <Button
@@ -301,7 +301,7 @@ export function RegistryDetail({
                   >
                     Dependencies
                   </h2>
-                  <div className="rounded-xl border border-border/55 bg-card p-5 shadow-sm ring-1 ring-black/[0.03] dark:ring-white/[0.06]">
+                  <div className="rounded-xl border border-border/55 bg-card p-5 shadow-sm ring-1 ring-black/3 dark:ring-white/6">
                     <p className="mb-3 text-[12px] font-medium text-muted-foreground">
                       npm
                     </p>
@@ -364,7 +364,7 @@ export function RegistryDetail({
                 >
                   API Reference
                 </h2>
-                <div className="rounded-xl border border-border/55 bg-card p-5 shadow-sm ring-1 ring-black/[0.03] dark:ring-white/[0.06]">
+                <div className="rounded-xl border border-border/55 bg-card p-5 shadow-sm ring-1 ring-black/3 dark:ring-white/6">
                   {propsRef.length > 0 ? (
                     <div className="overflow-x-auto">
                       <table className="w-full min-w-[480px] border-collapse text-left text-[13px]">
@@ -419,7 +419,7 @@ export function RegistryDetail({
                 >
                   Shopify metadata
                 </h2>
-                <div className="rounded-xl border border-border/55 bg-card p-5 shadow-sm ring-1 ring-black/[0.03] dark:ring-white/[0.06]">
+                <div className="rounded-xl border border-border/55 bg-card p-5 shadow-sm ring-1 ring-black/3 dark:ring-white/6">
                   <dl className="grid gap-3 text-[13px] sm:grid-cols-[8rem_1fr]">
                     <dt className="font-medium text-muted-foreground">
                       objects
